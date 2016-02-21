@@ -1,7 +1,7 @@
-![](https://cloud.githubusercontent.com/assets/110953/7877439/6a69d03e-0590-11e5-9fac-c614246606de.png)
-## Polymer Starter Kit
+![](https://lh3.googleusercontent.com/WylraiP9Oh6xD1Wc2diGnyUi3LU6-_Szan1IhOZHNrY1LG8ILeeBH_T1C3iMGs-feg61oH5jPtJnN2kaBrDeCdFdKn9oP-EUJeAQpxtAMRQQAFAeo9ASs_LhKGmnuh-1kWQmCvBorC6sZkDaYQ7yE5HdUi1alYZgtruH050UsS41n9VNnFVyT7De_hylxMcbjURkKItUZKSdDmCNQCmdbUuhrimf0l_IVeVI0njFxENAPzgNV0SJNDm6VqhV51VBr6NfRN1DqoIR2G3nK591ZDIpN9H0qoDo-n1uXJTM7nOAlFuA7uoczkYwdBMnycdy6XXIzDxDgMC-L0MvYbQuzOZeHQi2OtMGFMxqc-KEELug46PaZXEN_P41K0sOpMByDS8v4BT_Vyt4LGIkZhp2ShuGQ0AlTlfx1rmnQ27pdoRHVFg2YwUu3uPJBJ_khq4FQrtD2AOL_NspDAe1n8kzbtUE05KqOzjGdYKQX7al4NnG3jdVKu8b07ib4P_A8Q4sSTzMUIIx12cwr9eYna49lg31fuHJKXim53onFvu4t0EjsJ34njD3qJjnz3S9pId9fH4=w1530-h846-no)
+## Algorithm Visualization
 
-> A starting point for building web applications with Polymer 1.0
+> Algorithm Academy 1.0
 
 ### Included out of the box:
 
