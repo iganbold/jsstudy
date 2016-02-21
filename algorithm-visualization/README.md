@@ -2,11 +2,17 @@
 ## Algorithm Visualization
 
 > Algorithm Academy 1.0
+Algorithm Academy helps students to demonstrate well known algorithms by using visualization.
+#### Algorithm List
+* Huffman encoding
+
 
 ### Used Tools:
-* Polymer 1.0
-* Visjs library for graph
-* Bucketjs library for DataStructure
+* Polymer 1.0 (webcomponent)
+* Google Material Design
+* Firebase (host)
+* Visjs (graph)
+* Bucketjs (DataStructure)
 
 ### Demo
 See latest Algorithm Academy Demo at https://algorithm-visual.firebaseapp.com/
