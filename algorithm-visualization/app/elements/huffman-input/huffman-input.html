@@ -1,0 +1,101 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/iron-label/iron-label.html">
+
+<dom-module id="huffman-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+      #main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1abc9c;
+        width: 100%;
+        height: 100%;
+      }
+      
+      paper-fab {
+        --paper-fab-background: #FFEB3B;
+      }
+      
+      #control {
+        display: flex;
+        position:fixed; 
+        right:100px; 
+        top:90px;
+      }
+      
+      #inputview {
+        width: 600px;
+      }
+      
+      #body {
+        width: 100%;
+        height:100%;
+      }
+    </style>
+    <div id="body">
+      <paper-toolbar>
+        <paper-icon-button icon="code" on-tap="menuAction"></paper-icon-button>
+        <div class="title">Encode text: {{encodeText}}</div>
+        <paper-icon-button icon="more-vert" on-tap="moreAction"></paper-icon-button>
+      </paper-toolbar>
+    
+      <div id="main">
+        <huffman-tree data="{{encodeText}}"></huffman-tree>
+      </div>  
+      <div id="control">
+        <paper-fab icon="create" elevation="1" on-tap="showDialog"></paper-fab>
+      </div>
+      <paper-dialog id="inputview" entry-animation="scale-up-animation"
+                        exit-animation="fade-out-animation" with-backdrop>
+            <h2>Text Encoding</h2>
+        <div>
+          <paper-input value="{{encodeText::input}}" label="input with at most 50 characters" char-counter maxlength="50"></paper-input>
+        </div>
+      </paper-dialog>
+      
+    </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'huffman-input',
+
+      properties: {
+        encodeText: {
+          type: String,
+          notify:true
+        }
+      },
+      
+      showDialog() {
+        this.$.inputview.open();
+        if(this.data != null) {
+          this.$.bgtext.hide = true;
+        }
+      },
+      
+    });
+  })();
+  </script>
+</dom-module>

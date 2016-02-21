@@ -1,0 +1,210 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../vis-js/vis-js.html">
+<link rel="import" href="../buckets-js/buckets-js.html">
+
+<dom-module id="my-ds-test">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      
+      #mynetwork{
+            width: 100%;
+            height: 600px;
+            border: 1px solid lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #222222;
+        }
+    </style>
+    <div>Huffman <span>{{foo}}</span></div>
+    
+    <paper-input id="text" ></paper-input>
+    <paper-button on-tap="generateTree">Start</paper-button>
+    
+    <div id="mynetwork"> </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'my-ds-test',
+
+      properties: {
+        foo: {
+          type: String,
+          value: 'coding',
+          notify: true
+        }
+      },
+      
+      generateTree() {
+        var text = this.$.text.value;
+        var tree;
+        var nodes = new vis.DataSet();
+        var edges = new vis.DataSet();
+        var container = this.$.mynetwork;
+        var data = {
+          nodes: nodes,
+          edges: edges
+        };
+        var options = {
+          layout: {
+                    hierarchical: {
+                        direction: "UD",
+                        sortMethod: 'directed'
+                    },
+                    nodes: {
+                        shape: 'dot',
+                        size: 30,
+                        font: {
+                            size: 32,
+                            color: '#ffffff'
+                        },
+                        borderWidth: 2
+                    },
+                    edges: {
+                        width: 2
+                    }
+          },
+        };
+        var network = new vis.Network(container, data, options);
+        
+        console.log(text+" : size "+ text.length);
+        var s =new Map();
+        var minHeap =new buckets.Heap((a,b)=> {
+          if(a.w < b.w) 
+            return -1
+          else if(a.w > b.w) 
+            return 1 
+          else 
+            return 0
+        });
+        
+        for(var i=0 ; i < text.length;i++) {
+          if(s.has(text[i]))
+          {
+            s.set(text[i],(s.get(text[i])+1));
+          } else {
+            s.set(text[i],1);
+          }
+        }
+        
+        s.forEach((v,k)=> minHeap.add({
+          sym: k,
+          w: v
+        }));
+        
+        
+        //generate huffman tree
+        while(!minHeap.isEmpty()) {
+          
+          var a = minHeap.removeRoot();
+          
+          if(minHeap.isEmpty()) 
+          {
+            tree = a;
+            break;
+          }
+          
+          var b = minHeap.removeRoot();
+          var c = {};
+          
+          var nodea = {
+            id: a.sym,
+            label: a.w,
+            w: a.w
+          };
+              
+          var nodeb = {
+            id: b.sym,
+            label: b.w,
+            w: b.w
+          };
+          
+          var ncid = a.sym+""+b.sym;
+          var nclable = a.w+b.w;
+          var ncw = a.w+b.w;
+          
+          var nodec = {
+            id: ncid,
+            label: nclable,
+            w: ncw
+          };
+          
+          nodes.update(nodea);
+          nodes.update(nodeb);
+          nodes.update(nodec);
+         
+          
+          
+          var edge1 = {};
+          var edge2 = {};
+          
+          edge1.from = nodea.id;
+          edge1.to = nodec.id;
+          // edge1.label = "0";
+          edge2.from = nodeb.id;
+          edge2.to = nodec.id;
+          // edge2.label = "1";
+          
+          if(a.w <= b.w) {
+            c.l = a;
+            c.r = b;
+          } else {
+            c.l = b;
+            c.r = a;
+          }
+          
+          edges.add(edge1);
+          edges.add(edge2);
+          
+          c.w = (a.w + b.w);
+          c.sym = a.sym + b.sym;
+          minHeap.add(c);
+        }
+        
+        var huffmanMap = new Map();
+        this.printLeafNode(tree,"",huffmanMap);
+        network.fit();
+        console.log(tree);
+      },
+      
+      printLeafNode(node,code,map) {
+        if(node == null) {
+          return;
+        }
+         
+        if(node.l == null && node.r == null)
+        {
+          map.set(node.sym,code);
+          // node.code = code;
+          // console.log(node);
+        }
+        var codel = code+"0";  
+        this.printLeafNode(node.l, codel,map);
+        var coder = code+"1"; 
+        this.printLeafNode(node.r, coder,map);
+      }
+      
+      
+    });
+    
+  })();
+  </script>
+</dom-module>
