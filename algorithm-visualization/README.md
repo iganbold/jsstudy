@@ -16,8 +16,9 @@
 * Bucketjs (DataStructure)
 
 ### Demo
-See latest Algorithm Academy Demo at https://algorithm-visual.firebaseapp.com/
-[![Little red ridning hood](http://i.imgur.com/7YTMFQp.png)](https://vimeo.com/3514904 "Little red riding hood - Click to Watch!")
+See latest Algorithm Academy live Demo at https://algorithm-visual.firebaseapp.com/
+or
+watch a video at https://www.youtube.com/watch?v=Fs-Bk2Zhozk
 
 #### Screenshots
 
