@@ -8,6 +8,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<!--TODO : fix code style with highligths or prism-->
+<!--TODO : fix js load files-->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../highlight-js/highlight-js.html">
 
@@ -36,82 +38,81 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Huffman coding algorithm in Java Script
         <!--{{data.title}}-->
       </div>
-     
-       <pre><code class="js">
-         <!--{{data.code}}-->
-         //counting the number of apperance 
-         var map =new Map();
-        
-         for(var i=0 ; i < data.length;i++) {
-            if(map.has(data[i]))
-            {
-              map.set(data[i],(countRepeatMap.get(data[i])+1));
-            } else {
-              map.set(data[i],1);
-            }
-         }
+      
+       <pre><code class="javascript">
+           //counting the number of apperance 
+           var map =new Map();
+          
+           for(var i=0 ; i < data.length;i++) {
+              if(map.has(data[i]))
+              {
+                map.set(data[i],(countRepeatMap.get(data[i])+1));
+              } else {
+                map.set(data[i],1);
+              }
+           }
+           
+           //Create mininum heap
+           var minHeap =new buckets.Heap((sym1,sym2)=> {
+              if(sym1.weight < sym2.weight) 
+                return -1;
+              else if(sym1.weight > sym2.weight) 
+                return 1; 
+              else 
+              return 0;
+           });
+           
+           //Add symbols with number of apperance
+           countRepeatMap.forEach((v,k)=> minHeap.add({
+              sym: k,
+              weight: v
+           }));
+           
+           //Generate Huffman tree
+           var tree;
+           while(!minHeap.isEmpty()) {
+    
+              var data1 = minHeap.removeRoot();
+              
+              if(minHeap.isEmpty()) 
+              {
+                tree = data1;
+                break;
+              }
+              
+              var data2 = minHeap.removeRoot();
+              var data3 = {};
+              
+              if(data1.w <= data2.w) {
+                data3.l = data1;
+                data3.r = data2;
+              } else {
+                data3.l = data2;
+                data1.r = data1;
+              }
+              
+              data3.w = (data1.w + data2.w);
+              data3.sym = data1.sym + data2.sym;
+              minHeap.add(data3);
+           }
+           
+           //Traverse leaf nodes to generate encoding
+           traverseLeafNode(node,code,map) {
+              if(node == null) {
+                return;
+              }
+               
+              if(node.l == null && node.r == null) {
+                map.set(node.sym,code);
+              }
+              
+              var encodeLeft = code+"0";  
+              this.traverseLeafNode(node.l, encodeLeft,map);
+              var encodeRight = code+"1"; 
+              this.traverseLeafNode(node.r, encodeRight,map);
+           }
          
-         //Create mininum heap
-         var minHeap =new buckets.Heap((sym1,sym2)=> {
-            if(sym1.weight < sym2.weight) 
-              return -1;
-            else if(sym1.weight > sym2.weight) 
-              return 1; 
-            else 
-            return 0;
-         });
-         
-         //Add symbols with number of apperance
-         countRepeatMap.forEach((v,k)=> minHeap.add({
-            sym: k,
-            weight: v
-         }));
-         
-         //Generate Huffman tree
-         var tree;
-         while(!minHeap.isEmpty()) {
-  
-            var data1 = minHeap.removeRoot();
-            
-            if(minHeap.isEmpty()) 
-            {
-              tree = data1;
-              break;
-            }
-            
-            var data2 = minHeap.removeRoot();
-            var data3 = {};
-            
-            if(data1.w <= data2.w) {
-              data3.l = data1;
-              data3.r = data2;
-            } else {
-              data3.l = data2;
-              data1.r = data1;
-            }
-            
-            data3.w = (data1.w + data2.w);
-            data3.sym = data1.sym + data2.sym;
-            minHeap.add(data3);
-         }
-         
-         //Traverse leaf nodes to generate encoding
-         traverseLeafNode(node,code,map) {
-            if(node == null) {
-              return;
-            }
-             
-            if(node.l == null && node.r == null) {
-              map.set(node.sym,code);
-            }
-            
-            var encodeLeft = code+"0";  
-            this.traverseLeafNode(node.l, encodeLeft,map);
-            var encodeRight = code+"1"; 
-            this.traverseLeafNode(node.r, encodeRight,map);
-         }
-         
-        </code></pre>
+      </code></pre>
     </paper-material>
   </template>
   <script>
@@ -133,8 +134,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       
-      ready: function() {
+      ready() {
         hljs.initHighlightingOnLoad();
+        // console.log("ready");
       }
     });
   })();
