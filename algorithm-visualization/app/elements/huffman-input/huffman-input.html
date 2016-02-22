@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/iron-label/iron-label.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
 
 <dom-module id="huffman-input">
   <template>
@@ -22,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         height: 100%;
       }
-      #main {
+      #visual {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -50,29 +52,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
         height:100%;
       }
+      
+      
+      iron-pages {
+        height: 100%;
+      }
+      
+      #tutorial {
+        height: 100%;
+      }
     </style>
     <div id="body">
       <paper-toolbar>
         <paper-icon-button icon="code" on-tap="menuAction"></paper-icon-button>
         <div class="title">Encode text: {{encodeText}}</div>
-        <paper-icon-button icon="more-vert" on-tap="moreAction"></paper-icon-button>
+        <paper-tabs selected="{{selected}}">
+          <paper-tab>
+            VISUAL PART
+          </paper-tab>
+          <paper-tab>ALGORITHM PART</paper-tab>
+        </paper-tabs>
       </paper-toolbar>
-    
-      <div id="main">
-        <huffman-tree data="{{encodeText}}"></huffman-tree>
-      </div>  
-      <div id="control">
-        <paper-fab icon="create" elevation="1" on-tap="showDialog"></paper-fab>
-      </div>
-      <paper-dialog id="inputview" entry-animation="scale-up-animation"
-                        exit-animation="fade-out-animation" with-backdrop>
-            <h2>Text Encoding</h2>
-        <div>
-          <paper-input value="{{encodeText::input}}" label="input with at most 50 characters" char-counter maxlength="50"></paper-input>
-        </div>
-      </paper-dialog>
       
-    </div>
+      <iron-pages selected="{{selected}}">
+        <div id="visual">
+          <huffman-tree data="{{encodeText}}"></huffman-tree>
+          <div id="control">
+            <paper-fab icon="create" elevation="1" on-tap="showDialog"></paper-fab>
+          </div>
+          <paper-dialog id="inputview" entry-animation="scale-up-animation"
+                            exit-animation="fade-out-animation" with-backdrop>
+                <h2>Text Encoding</h2>
+            <div>
+              <paper-input value="{{encodeText::input}}" label="input with at most 50 characters" char-counter maxlength="50"></paper-input>
+            </div>
+          </paper-dialog>
+        </div>
+        <div id="tutorial">
+          <huffman-tutorial></huffman-tutorial>
+        </div>
+      </iron-pages>
   </template>
   <script>
   (function() {
@@ -84,6 +103,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         encodeText: {
           type: String,
+          notify:true
+        },
+        selected: {
+          type: String,
+          value: "0",
           notify:true
         }
       },

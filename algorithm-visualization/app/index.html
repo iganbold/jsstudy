@@ -63,17 +63,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
-    <!--<paper-toolbar id="mainToolbar" class="tall">-->
-    <!--  <paper-icon-button icon="menu"></paper-icon-button>-->
-    <!--  <span class="title">Huffman encoding</span>-->
-    <!--  <paper-tabs selected="0" class="bottom self-end" style="width: 100%;">-->
-    <!--    <paper-tab>ALGORITHM</paper-tab>-->
-    <!--    <paper-tab>TUTORIAL</paper-tab>-->
-    <!--  </paper-tabs>-->
-    <!--</paper-toolbar>  -->
-    <huffman-input></huffman-input>
     <!--<huffman-tree></huffman-tree>-->
-    
+    <huffman-input></huffman-input>
+    <!--<iron-pages attr-for-selected="data-route" selected="visualization">-->
+    <!--  <section data-route="visualization">-->
+        
+    <!--  </section>-->
+        
+    <!--  <section data-route="tutorial">-->
+    <!--    <huffman-tutorial></huffman-tutorial>-->
+    <!--  </section>-->
+      
+    <!--  <section data-route="user-info">-->
+    <!--          <paper-material elevation="1">-->
+    <!--            <h2 class="page-title">User: {{params.name}}</h2>-->
+    <!--            <div>This is {{params.name}}'s section</div>-->
+    <!--          </paper-material>-->
+    <!--        </section>-->
+    <!--</iron-pages>-->
 
     <paper-toast id="toast">
       <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
