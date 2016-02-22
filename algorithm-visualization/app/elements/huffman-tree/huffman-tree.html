@@ -129,6 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         var network = new vis.Network(container, data, options);
         
+        //Using Web Worker for huffman tree computation 
         var w;
         if(window.Worker) {
             if(typeof(w) == "undefined") {
@@ -162,7 +163,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var coder = code+"1"; 
         this.traverseLeafNode(node.r, coder,map);
       }
-      
     });
   })();
   </script>
