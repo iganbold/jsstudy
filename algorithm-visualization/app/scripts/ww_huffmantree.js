@@ -96,17 +96,21 @@ onmessage = function(e) {
           
           edge1.from = nodea.id;
           edge1.to = nodec.id;
-          // edge1.label = "0";
+
           edge2.from = nodeb.id;
           edge2.to = nodec.id;
-          // edge2.label = "1";
+          edge2.label = "1";
           
           if(a.w <= b.w) {
             c.l = a;
             c.r = b;
+            edge1.label = "0";
+            edge2.label = "1";
           } else {
             c.l = b;
             c.r = a;
+            edge1.label = "1";
+            edge2.label = "0";
           }
           
           edges.add(edge1);
