@@ -7,8 +7,9 @@
 * Coming soon
 
 
-### Used Tools:
+### Used :
 * Polymer 1.0 (webcomponent)
+* Web Worker (computation "ex huffman coding")
 * Google Material Design
 * Firebase (host)
 * Visjs (graph)
