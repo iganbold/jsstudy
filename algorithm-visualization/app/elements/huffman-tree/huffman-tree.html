@@ -133,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var w;
         if(window.Worker) {
             if(typeof(w) == "undefined") {
-                w = new Worker("/elements/huffman-tree/tree_generator.js");
+                w = new Worker("/scripts/ww_huffmantree.js");
                 w.postMessage(text);
             }
             w.onmessage = (event)=> {
