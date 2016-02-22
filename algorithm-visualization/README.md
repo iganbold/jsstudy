@@ -3,8 +3,8 @@
 
 > Algorithm Academy 1.0 helps students to demonstrate well known algorithms by using visualization.
 ###### Algorithm List
-* Huffman encoding
-* Coming soon
+* Huffman coding
+* Coming soon... 
 
 
 ### Used :
