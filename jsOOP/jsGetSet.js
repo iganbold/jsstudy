@@ -54,29 +54,53 @@
 // **************************************
 // Create getter and setter with Object.defineProperty()
 
-function Point() {
-    this.xPos = 0;
-    this.yPos = 0;
+// function Point() {
+//     this.xPos = 0;
+//     this.yPos = 0;
+// }
+
+// Object.defineProperty(Point.prototype, "pointPos" , {
+//     get() {
+//       return "Positions: "+ this.xPos + ", "+ this.yPos;   
+//     },
+//     set(string) {
+//         var parts = string.split(", ");
+//         this.xPos = parts[0] || "00";
+//         this.yPos = parts[1] || "00";
+//     }
+// });
+
+// var p1 = new Point();
+
+// p1.pointPos = "200, 400";
+
+// console.log(p1.pointPos);
+
+// *******************************************************
+// Learn Ecma 5.1 getter and setter 
+
+function Circle(radius) {
+    // _radius is private property but it is just a coding convention that means anybody can access to _radius
+    this._radius = radius;
 }
 
-Object.defineProperty(Point.prototype, "pointPos" , {
-    get() {
-      return "Positions: "+ this.xPos + ", "+ this.yPos;   
+Circle.prototype = {
+    get getRadius() { 
+        return "get: "+this._radius;
     },
-    set(string) {
-        var parts = string.split(", ");
-        this.xPos = parts[0] || "00";
-        this.yPos = parts[1] || "00";
+    
+    set setRadius(rad) {
+        this._radius = rad;
     }
-});
+}
 
-var p1 = new Point();
+var c1 = new Circle(5);
 
-p1.pointPos = "200, 400";
+console.log(c1.getRadius);
 
-console.log(p1.pointPos);
+c1.setRadius = 6;
 
-
+console.log(c1.getRadius);
 
 
 
